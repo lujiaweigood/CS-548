@@ -1,0 +1,163 @@
+{
+	"$id": "https://cs548.stevens.edu/clinic/treatment",
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"description": "JSON Schema for treatments",
+	"oneOf" : [
+		{ "$ref" : "#/$defs/surgery" },
+		{ "$ref" : "#/$defs/drug-treatment" },
+		{ "$ref" : "#/$defs/radiology" },
+		{ "$ref" : "#/$defs/physiotherapy" }
+	],
+	"$defs": {
+		"base": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "string",
+					"format": "uuid"
+				},
+				"type-tag": {
+					"enum": [ "SURGERY", "DRUGTREATMENT", "RADIOLOGY", "PHYSIOTHERAPY" ]
+				},
+				"patient-id": {
+					"type": "string",
+					"format": "uuid"
+				},
+				"provider-id": {
+					"type": "string",
+					"format": "uuid"
+				},
+				"diagnosis": {
+					"type": "string"
+				}
+			},
+			"required": [
+				"id",
+				"type-tag",
+				"patient-id",
+				"provider-id",
+				"diagnosis"
+			]
+		},
+		"drug-treatment": {
+			"allOf": [
+				{ "$ref" : "#/$defs/base" }
+			],
+			"properties": {
+				"drug": {
+					"type": "string"
+				},
+				"dosage": {
+					"type": "number"
+				},
+				"start-date": {
+					"type": "string",
+					"format": "date"
+				},
+				"end-date": {
+					"type": "string",
+					"format": "date"
+				},
+				"frequency": "integer"
+			},
+			"required": [
+				"drug",
+				"dosage",
+				"start-date",
+				"end-date",
+				"frequency"
+			],
+			"unevaluatedProperties" : false
+		},
+		"physiotherapy": {
+			"allOf": [
+				{ "$ref" : "#/$defs/base" }
+			],
+			"properties": {
+				"physiotherapyName": {
+					"type": "string"
+				},
+				"location": {
+					"type": "string"
+				},
+				"start-date": {
+					"type": "string",
+					"format": "date"
+				},
+				"end-date": {
+					"type": "string",
+					"format": "date"
+				},
+				"attention": "string"
+			},
+			"required": [
+				"physiotherapyName",
+				"location",
+				"start-date",
+				"end-date",
+				"attention"
+			],
+			"unevaluatedProperties" : false
+		},
+		"radiology": {
+			"allOf": [
+				{ "$ref" : "#/$defs/base" }
+			],
+			"properties": {
+				"radiologyName": {
+					"type": "string"
+				},
+				"location": {
+					"type": "string"
+				},
+				"start-date": {
+					"type": "string",
+					"format": "date"
+				},
+				"end-date": {
+					"type": "string",
+					"format": "date"
+				},
+				"attention": "string"
+			},
+			"required": [
+				"radiologyName",
+				"location",
+				"start-date",
+				"end-date",
+				"attention"
+			],
+			"unevaluatedProperties" : false
+		},
+		"surgery": {
+			"allOf": [
+				{ "$ref" : "#/$defs/base" }
+			],
+			"properties": {
+				"surgeryName": {
+					"type": "string"
+				},
+				"location": {
+					"type": "string"
+				},
+				"start-date": {
+					"type": "string",
+					"format": "date"
+				},
+				"end-date": {
+					"type": "string",
+					"format": "date"
+				},
+				"attention": "string"
+			},
+			"required": [
+				"surgeryName",
+				"location",
+				"start-date",
+				"end-date",
+				"attention"
+			],
+			"unevaluatedProperties" : false
+		}
+	}
+}
